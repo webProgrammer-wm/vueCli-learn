@@ -1,14 +1,27 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import home from "../views/home"
+import Cinema from "../views/Cinema"
+import Center from "../views/Center"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
-    component: home
+    component: home,
+
+  },
+  {
+    path: '/cinema',
+    name: 'Cinema',
+    component: Cinema
+  },
+  {
+    path: '/center',
+    name: 'Center',
+    component: Center
   }
 ]
 
