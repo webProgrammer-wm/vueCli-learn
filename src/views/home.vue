@@ -2,11 +2,14 @@
   <div>
     <navbar></navbar>
     home
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
   import Navbar from "../components/Navbar"
+  import CommingSoon from "./Home/CommingSoon"
+  import NowPlaying from "./Home/NowPlaying"
 
   export default {
     name: "home",
@@ -15,7 +18,9 @@
       }
     },
     components: {
-      Navbar
+      Navbar,
+      CommingSoon,
+      NowPlaying
     }
   }
 </script>
