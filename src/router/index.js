@@ -5,6 +5,7 @@ import NowPlaying from "../views/Home/NowPlaying"
 import ComingSoon from "../views/Home/CommingSoon"
 import Cinema from "../views/Cinema"
 import Center from "../views/Center"
+import Detail from "../views/Detail"
 
 Vue.use(VueRouter)
 
@@ -22,12 +23,21 @@ const routes = [
         path: '/home/comingsoon',
         component: ComingSoon
       }
-    ]
+    ],
+    // 跳转到 home 页的话 重定向到 nowplaying页
+    redirect: '/home/nowplaying'
   },
   {
     path: '/cinema',
     name: 'Cinema',
     component: Cinema
+  },
+  {
+    // 动态路由，参数id 在此获取
+    path: '/detail/:productid', // /detail/123
+    name: 'Detail',
+    component: Detail,
+
   },
   {
     path: '/center',
