@@ -4,12 +4,51 @@
              如果这次初始化前没拿到数据，那么在初始化后才拿到数据，
              递归算法因为 imgList 的长度变化而重新渲染
          -->
-        <swiper class="swiper-wrap" :key="imgList.length">
+        <swiper class="swiper-wrap" :key="imgList.length" ref="swiper">
             <div class="swiper-slide" v-for="item in imgList" :key="item">
                 <img :src="item" alt="">
             </div>
         </swiper>
-        <router-view></router-view>
+        <film-header :class="isFixed? 'fixed' : ''"></film-header>
+        <!-- 防止header栏吸顶后，下面内容出现一次抖动问题 -->
+        <router-view :style="{paddingTop:isFixed?'49px' : ''}"></router-view>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+
+        <p>1</p>
+        <p>1</p><p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+
+        <p>1</p>
+        <p>1</p>
+
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
+        <p>1</p>
     </div>
 </template>
 
@@ -18,6 +57,7 @@
     import CommingSoon from "./Film/CommingSoon"
     import NowPlaying from "./Film/NowPlaying"
     import Swiper from "@/views/Film/Swiper"
+    import FilmHeader from "./Film/FilmHeader"
     import axios from 'axios'
 
     export default {
@@ -28,17 +68,29 @@
                   'http://img5.imgtn.bdimg.com/it/u=523331786,452711451&fm=15&gp=0.jpg',
                   'http://img3.imgtn.bdimg.com/it/u=1761607809,3289570738&fm=15&gp=0.jpg',
                   'http://img5.imgtn.bdimg.com/it/u=4088829828,869036217&fm=15&gp=0.jpg'
-                ]
+                ],
+                isFixed: false
             }
         },
         components: {
             Navbar,
             CommingSoon,
             NowPlaying,
+            FilmHeader,
             Swiper
         },
         mounted() {
-
+            window.onscroll = this.touchScroll
+        },
+        methods: {
+            touchScroll() {
+                // console.log(document.documentElement.scrollTop, this.$refs.swiper)
+                if (document.documentElement.scrollTop >= this.$refs.swiper.$el.offsetHeight) {
+                    this.isFixed = true
+                } else {
+                    this.isFixed = false
+                }
+            }
         }
     }
 </script>

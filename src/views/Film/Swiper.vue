@@ -32,10 +32,12 @@
 
 <style lang="scss" scoped>
     .swiper-wrap {
-    img {
-        width: 400px;
+        /*width: 100%;*/
         height: 200px;
-    }
+        img {
+            width: 400px;
+            height: 200px;
+        }
     }
     .film-swiper-pagination {
         text-align: right;

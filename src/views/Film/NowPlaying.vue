@@ -1,6 +1,5 @@
 <template>
     <div>
-        nowPlaying
         <ul>
             <li v-for="data in dataList" :key="data.filmId" @click="toProduct(data)">
                 <div class="left">

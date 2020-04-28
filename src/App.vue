@@ -23,6 +23,8 @@
     * {
         margin: 0;
         padding: 0;
+        text-decoration: none;
+        color: #191a1b;
     }
 
     html {
