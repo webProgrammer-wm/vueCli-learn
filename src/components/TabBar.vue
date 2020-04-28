@@ -2,7 +2,7 @@
     <nav>
         <ul>
             <!-- 给当前所在路由的按钮添加 class -->
-            <router-link to="/home" tag="li" active-class="active">
+            <router-link to="/film" tag="li" active-class="active">
                 <i class="iconfont icon-dianying"></i>
                 首页
             </router-link>
@@ -44,9 +44,15 @@
             display: flex;
 
             li {
-                flex: 1;
+                width: 33%;
                 line-height: 50px;
                 text-align: center;
+                position: relative;
+
+                i {
+
+                    font-size: 20px;
+                }
             }
         }
     }

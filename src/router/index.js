@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import home from "../views/home"
-import NowPlaying from "../views/Home/NowPlaying"
-import ComingSoon from "../views/Home/CommingSoon"
+import Film from "../views/Film"
+import NowPlaying from "../views/Film/NowPlaying"
+import ComingSoon from "../views/Film/CommingSoon"
 import Cinema from "../views/Cinema"
 import Center from "../views/Center"
 import Detail from "../views/Detail"
@@ -12,21 +12,21 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/home',
-    name: 'home',
-    component: home,
+    path: '/film',
+    name: 'Film',
+    component: Film,
     children: [
       {
-        path: '/home/nowplaying',
+        path: '/film/nowplaying',
         component: NowPlaying
       },
       {
-        path: '/home/comingsoon',
+        path: '/film/comingsoon',
         component: ComingSoon
       }
     ],
-    // 跳转到 home 页的话 重定向到 nowplaying页
-    redirect: '/home/nowplaying'
+    // 跳转到 film 页的话 重定向到 nowplaying页
+    redirect: '/film/nowplaying'
   },
   {
     path: '/cinema',
@@ -53,7 +53,7 @@ const routes = [
   // 路由重定向，如果路由跳转的不是以上配置好的路由，那么自动跳转到 /home 页
   {
     path: '*',
-    redirect: '/home'
+    redirect: '/film'
   },
 ]
 
