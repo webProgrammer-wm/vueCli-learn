@@ -26,6 +26,7 @@
     }
 
     html {
+        background: #F4F4F4;
         height: 100%;
     }
 
