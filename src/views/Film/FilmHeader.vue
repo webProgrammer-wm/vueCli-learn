@@ -7,7 +7,6 @@
             <li>
                 <router-link to="/film/comingsoon" active-class="active">即将上映</router-link>
             </li>
-
         </ul>
     </div>
 </template>

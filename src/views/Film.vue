@@ -4,7 +4,14 @@
              如果这次初始化前没拿到数据，那么在初始化后才拿到数据，
              递归算法因为 imgList 的长度变化而重新渲染
          -->
-        <swiper class="swiper-wrap" :key="imgList.length" ref="swiper">
+        <swiper class="swiper-wrap"
+                :key="imgList.length"
+                ref="swiper"
+                :loop="true"
+                :autoplay="true"
+                :slidesPerView="'auto'"
+                :pagination="true"
+        >
             <div class="swiper-slide" v-for="item in imgList" :key="item">
                 <img :src="item" alt="">
             </div>
@@ -49,10 +56,12 @@
         <p>1</p>
         <p>1</p>
         <p>1</p>
+        <tab-bar></tab-bar>
     </div>
 </template>
 
 <script>
+    import TabBar from "../components/TabBar"
     import Navbar from "../components/Navbar"
     import CommingSoon from "./Film/CommingSoon"
     import NowPlaying from "./Film/NowPlaying"
@@ -74,6 +83,7 @@
         },
         components: {
             Navbar,
+            TabBar,
             CommingSoon,
             NowPlaying,
             FilmHeader,
@@ -91,10 +101,19 @@
                     this.isFixed = false
                 }
             }
+        },
+        beforeDestroy() {
+            window.onscroll = null
         }
     }
 </script>
 
 <style lang="scss" scoped>
-
+    .swiper-wrap {
+        height: 200px;
+        img {
+            width: 400px;
+            height: 200px;
+        }
+    }
 </style>

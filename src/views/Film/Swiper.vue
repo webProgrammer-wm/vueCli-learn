@@ -3,8 +3,7 @@
         <div class="swiper-wrapper">
             <slot></slot>
         </div>
-
-        <div class="swiper-pagination film-swiper-pagination"></div>
+        <div v-if="pagination" class="swiper-pagination film-swiper-pagination"></div>
     </div>
 </template>
 
@@ -16,31 +15,43 @@
         data() {
             return {}
         },
+        props: {
+            loop: {
+                type: Boolean,
+                default: false
+            },
+            pagination: {
+                type: Boolean,
+                default: false
+            },
+            autoplay: {
+                type: Boolean,
+                default: false
+            },
+            freeMode: {
+                type: Boolean,
+                default: false
+            },
+            slidesPerView: {
+                type: String,
+                default: ''
+            }
+        },
         mounted() {
             new Swiper('.film-swiper', {
-                loop: true,
-                autoplay: {
-                  delay: 1500
-                },
+                loop: this.loop,
+                autoplay: this.autoplay,
                 pagination: {
                     el: '.swiper-pagination'
-                }
+                },
+                freeMode: this.freeMode,
+                // watchOverflow: true,
+                slidesPerView: this.slidesPerView,
             })
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .swiper-wrap {
-        /*width: 100%;*/
-        height: 200px;
-        img {
-            width: 400px;
-            height: 200px;
-        }
-    }
-    .film-swiper-pagination {
-        text-align: right;
-        margin-left: -10px;
-    }
+
 </style>

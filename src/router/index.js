@@ -7,60 +7,65 @@ import Cinema from "../views/Cinema"
 import Center from "../views/Center"
 import Detail from "../views/Detail"
 import Login from "../views/login"
+import Photos from "../views/Detail/Photos"
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/film',
-    name: 'Film',
-    component: Film,
-    children: [
-      {
-        path: '/film/nowplaying',
-        component: NowPlaying
-      },
-      {
-        path: '/film/comingsoon',
-        component: ComingSoon
-      }
-    ],
-    // 跳转到 film 页的话 重定向到 nowplaying页
-    redirect: '/film/nowplaying'
-  },
-  {
-    path: '/cinema',
-    name: 'Cinema',
-    component: Cinema
-  },
-  {
-    // 动态路由，参数id 在此获取
-    path: '/detail/:productid', // /detail/123
-    name: 'Detail',
-    component: Detail,
-
-  },
-  {
-    path: '/center',
-    name: 'Center',
-    component: Center
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  },
-  // 路由重定向，如果路由跳转的不是以上配置好的路由，那么自动跳转到 /home 页
-  {
-    path: '*',
-    redirect: '/film'
-  },
+    {
+        path: '/film',
+        name: 'Film',
+        component: Film,
+        children: [
+            {
+                path: '/film/nowplaying',
+                component: NowPlaying
+            },
+            {
+                path: '/film/comingsoon',
+                component: ComingSoon
+            }
+        ],
+        // 跳转到 film 页的话 重定向到 nowplaying页
+        redirect: '/film/nowplaying'
+    },
+    {
+        path: '/cinema',
+        name: 'Cinema',
+        component: Cinema
+    },
+    {
+        // 动态路由，参数id 在此获取
+        path: '/detail/:productId', // /detail/123
+        name: 'Detail',
+        component: Detail,
+    },
+    {
+        path: '/detail/photos/:productId',
+        name: 'Photos',
+        component: Photos
+    },
+    {
+        path: '/center',
+        name: 'Center',
+        component: Center
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
+    },
+    // 路由重定向，如果路由跳转的不是以上配置好的路由，那么自动跳转到 /home 页
+    {
+        path: '*',
+        redirect: '/film'
+    },
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 // 全局守卫

@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <li v-for="data in dataList" :key="data.filmId" @click="toProduct(data)">
+            <li v-for="data in dataList" :key="data.filmId" @click="toProduct(data.filmId)">
                 <div class="left">
                     <img :src="data.poster" alt="">
                     <div class="content">
@@ -58,7 +58,7 @@
                 // this.$router.push(`/detail/${id}`)
 
                 // 使用路由 name 跳转
-                this.$router.push({ name: 'Detail', params: { productid: 1234 }})
+                this.$router.push({ name: 'Detail', params: { productId: id }})
             }
         }
     }
