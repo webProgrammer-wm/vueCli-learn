@@ -2,27 +2,19 @@
     <div id="app">
         <!-- 路由展示的位置 -->
         <router-view/>
-        <tab-bar v-show="showTabbar"></tab-bar>
+        <tab-bar v-show="$store.state.showTabBar"></tab-bar>
     </div>
 </template>
 <script>
     import TabBar from "./components/TabBar"
     import axios from 'axios'
-    import bus from "./bus"
     export default {
         data() {
             return {
-                showTabbar: true
             }
         },
         components: {
             TabBar
-        },
-        beforeMount() {
-            bus.$on('maizuo', (data) => {
-                console.log('订阅了', data)
-                this.showTabbar = data
-            })
         },
         mounted() {
             // axios.get('/ajax/movieOnInfoList?token=').then(res => {

@@ -67,7 +67,6 @@
     import NowPlaying from "./Film/NowPlaying"
     import Swiper from "@/views/Film/Swiper"
     import FilmHeader from "./Film/FilmHeader"
-    import bus from "../bus"
     import axios from 'axios'
 
     export default {
@@ -90,7 +89,9 @@
             FilmHeader,
             Swiper
         },
-
+        beforeMount() {
+            this.$store.state.showTabBar = true
+        },
         mounted() {
             window.onscroll = this.touchScroll
         },

@@ -20,7 +20,6 @@
 </template>
 
 <script>
-    import bus from "../../bus"
     import axios from 'axios'
     import Gallery from "../../common/Gallery"
     export default {
@@ -34,7 +33,7 @@
         components: {
             Gallery
         },
-        mounted() {bus.$emit('maizuo', false)
+        mounted() {
             axios({
                 url: `https://m.maizuo.com/gateway?filmId=${this.$route.params.productId}&k=559072`,
                 headers: {
@@ -45,6 +44,7 @@
                 // console.log(res)
                 this.photosList = res.data.data.film.photos
                 console.log(this.photosList)
+                this.$store.state.showTabBar = false
             })
         },
         methods: {

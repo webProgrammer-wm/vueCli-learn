@@ -75,7 +75,6 @@
 <script>
     import axios from 'axios'
     import Swiper from "./Film/Swiper"
-    import bus from "../bus"
 
     export default {
         name: "Detail",
@@ -91,7 +90,7 @@
           Swiper
         },
         beforeMount() {
-            bus.$emit('maizuo', false)
+            this.$store.state.showTabBar = false
         },
         mounted() {
             // 在详情页面获取id
@@ -105,8 +104,6 @@
             }).then(res => {
                 this.movieInfo = res.data.data.film
                 this.actorsList = res.data.data.film.actors
-                console.log(this.movieInfo)
-                // console.log(this.actorsList)
             })
 
             window.onscroll = this.handleScroll
@@ -120,7 +117,6 @@
             },
             handleScroll() {
                 let curScroll = document.documentElement.scrollTop
-                console.log(curScroll)
                 this.isFixed = curScroll > 49;
             },
             goToPhotos() {
@@ -137,7 +133,6 @@
         },
         beforeDestroy() {
             window.onscroll = null
-            bus.$emit('maizuo', true)
         }
     }
 </script>
