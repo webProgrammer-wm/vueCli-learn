@@ -90,7 +90,7 @@
             Swiper
         },
         beforeMount() {
-            this.$store.state.showTabBar = true
+            this.$store.commit('hideTabbar', false)
         },
         mounted() {
             window.onscroll = this.touchScroll

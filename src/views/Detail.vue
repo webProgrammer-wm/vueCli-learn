@@ -90,7 +90,8 @@
           Swiper
         },
         beforeMount() {
-            this.$store.state.showTabBar = false
+            // 第一个参数是 mutation 名字
+            this.$store.commit('hideTabbar', true)
         },
         mounted() {
             // 在详情页面获取id

@@ -33,6 +33,9 @@
         components: {
             Gallery
         },
+        beforeMount() {
+            this.$store.commit('hideTabbar', true)
+        },
         mounted() {
             axios({
                 url: `https://m.maizuo.com/gateway?filmId=${this.$route.params.productId}&k=559072`,
@@ -44,7 +47,6 @@
                 // console.log(res)
                 this.photosList = res.data.data.film.photos
                 console.log(this.photosList)
-                this.$store.state.showTabBar = false
             })
         },
         methods: {
