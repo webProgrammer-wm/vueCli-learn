@@ -57,17 +57,17 @@
         <p>1</p>
         <p>1</p>
         <p>1</p>
-        <tab-bar></tab-bar>
+
     </div>
 </template>
 
 <script>
-    import TabBar from "../components/TabBar"
     import Navbar from "../components/Navbar"
     import CommingSoon from "./Film/CommingSoon"
     import NowPlaying from "./Film/NowPlaying"
     import Swiper from "@/views/Film/Swiper"
     import FilmHeader from "./Film/FilmHeader"
+    import bus from "../bus"
     import axios from 'axios'
 
     export default {
@@ -84,12 +84,13 @@
         },
         components: {
             Navbar,
-            TabBar,
+            // TabBar,
             CommingSoon,
             NowPlaying,
             FilmHeader,
             Swiper
         },
+
         mounted() {
             window.onscroll = this.touchScroll
         },

@@ -75,6 +75,7 @@
 <script>
     import axios from 'axios'
     import Swiper from "./Film/Swiper"
+    import bus from "../bus"
 
     export default {
         name: "Detail",
@@ -88,6 +89,9 @@
         },
         components: {
           Swiper
+        },
+        beforeMount() {
+            bus.$emit('maizuo', false)
         },
         mounted() {
             // 在详情页面获取id
@@ -133,6 +137,7 @@
         },
         beforeDestroy() {
             window.onscroll = null
+            bus.$emit('maizuo', true)
         }
     }
 </script>
