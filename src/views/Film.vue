@@ -4,7 +4,8 @@
              如果这次初始化前没拿到数据，那么在初始化后才拿到数据，
              递归算法因为 imgList 的长度变化而重新渲染
          -->
-        <swiper class="swiper-wrap"
+        <swiper class="swiper-wrap banner-swiper"
+                :el="'.banner-swiper'"
                 :key="imgList.length"
                 ref="swiper"
                 :loop="true"

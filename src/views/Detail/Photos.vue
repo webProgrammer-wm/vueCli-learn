@@ -5,21 +5,33 @@
             <div class="text">剧照 ({{ photosList.length }})</div>
         </div>
         <div class="photos-list">
-            <div v-for="(item, index) in photosList" :key="index">
-                <img :src="item" alt="">
+            <div class="item"  v-for="(item, index) in photosList" :key="index">
+                <img @click="showGallery(index)" :src="item" alt="">
             </div>
         </div>
+
+        <gallery v-show="isShowGallery"
+                 :imgList="photosList"
+                 ref="gallery"
+                 @close="close()"
+        >
+        </gallery>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
+    import Gallery from "../../common/Gallery"
     export default {
         name: "Photos",
         data() {
             return {
-                photosList: []
+                photosList: [],
+                isShowGallery: false,
             }
+        },
+        components: {
+            Gallery
         },
         mounted() {
             axios({
@@ -37,6 +49,13 @@
         methods: {
             back() {
                 this.$router.push('/detail/' + this.$route.params.productId)
+            },
+            showGallery(index) {
+                this.isShowGallery = true
+                this.$refs.gallery.toImg(index)
+            },
+            close() {
+                this.isShowGallery = false
             }
         }
     }
@@ -66,12 +85,12 @@
         }
 
         .photos-list {
-            div {
-                float: left;
-                width: 124px;
+            display: flex;
+            flex-wrap: wrap;
+            /*width: 100%;*/
+            .item {
+                width: 33%;
                 height: 124px;
-                margin-bottom: 2px;
-
                 img {
                     width: 100%;
                     height: 100%;

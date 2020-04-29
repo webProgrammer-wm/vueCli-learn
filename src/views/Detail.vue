@@ -50,7 +50,7 @@
                     <i class="iconfont icon-fanhui all"></i>
                 </div>
             </div>
-            <swiper class="img-list" :free-mode="true" :slides-per-view="'auto'">
+            <swiper class="img-list" :el="'.img-list'" :free-mode="true" :slides-per-view="'auto'">
                 <div class="swiper-slide item" v-for="(item, index) in movieInfo.photos" :key="index">
                     <div class="person-img">
                         <img :src="item" alt="">

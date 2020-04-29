@@ -35,18 +35,23 @@
             slidesPerView: {
                 type: String,
                 default: ''
+            },
+            el: {
+                type: String,
+                default: ''
             }
         },
         mounted() {
-            new Swiper('.film-swiper', {
+            new Swiper(this.el, {
                 loop: this.loop,
                 autoplay: this.autoplay,
                 pagination: {
                     el: '.swiper-pagination'
                 },
                 freeMode: this.freeMode,
-                // watchOverflow: true,
                 slidesPerView: this.slidesPerView,
+                observeParents: true,
+                observer: true
             })
         }
     }
