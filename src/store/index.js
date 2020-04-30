@@ -46,6 +46,12 @@ export default new Vuex.Store({
             })
         }
     },
+    getters: {
+        // 处理:只显示最新的一部电影
+        comingListGetter(state) {
+            return state.comingsoonList.filter((item, index) => index < 1)
+        }
+    },
     modules: {
     }
 })

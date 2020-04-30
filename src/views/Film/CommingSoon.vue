@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <li v-for="data in this.$store.state.comingsoonList" :key="data.filmId" @click="toProduct(data.filmId)">
+            <li v-for="data in this.$store.getters.comingListGetter" :key="data.filmId" @click="toProduct(data.filmId)">
                 <div class="left">
                     <img :src="data.poster" alt="">
                     <div class="content">
