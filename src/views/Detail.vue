@@ -1,6 +1,5 @@
 <template>
-    <div class="detail" v-if="movieInfo">
-
+    <div class="detail" v-if="movieInfo" :style="{paddingBottom: isSale ? '59px' : '10px'}">
         <div class="header-bar" :class="{ fixed: isFixed }">
             <div class="back iconfont icon-fanhui" @click="back()"></div>
             <div class="title" v-show="isFixed">{{ movieInfo.name }}</div>
@@ -11,7 +10,7 @@
         <div class="info">
             <div class="title">
                 <p>{{ movieInfo.name }}</p>
-                <p>{{ movieInfo.grade }}分</p>
+                <p v-if="isSale" class="score">{{ movieInfo.grade }}分</p>
             </div>
             <div class="text">
                 <p>{{ movieInfo.category }}</p>
@@ -19,8 +18,8 @@
                 <p>{{ movieInfo.nation }} | {{ movieInfo.runtime }}分钟</p>
 
             </div>
-            <div class="synopsis" :class="{hidden: hidden}">
-                <p>{{ movieInfo.synopsis }}</p>
+            <div class="synopsis" :class="{hidden: hidden}" :style="{height: height}">
+                <p ref="synopsis">{{ movieInfo.synopsis }}</p>
             </div>
             <div class="toggle iconfont icon-fanhui" @click="showMoreText"></div>
         </div>
@@ -65,7 +64,7 @@
 
         </div>
 
-        <div class="go-buy">
+        <div v-if="isSale"> class="go-buy">
             <router-link to="../">在线选座</router-link>
         </div>
 
@@ -83,7 +82,9 @@
                 movieInfo: null,
                 hidden: true,
                 actorsList: [],
-                isFixed: false
+                isFixed: false,
+                height: '42px',
+                isSale: true
             }
         },
         components: {
@@ -105,9 +106,13 @@
             }).then(res => {
                 this.movieInfo = res.data.data.film
                 this.actorsList = res.data.data.film.actors
+                console.log(this.movieInfo)
+                this.isSale = this.movieInfo.isSale
             })
 
             window.onscroll = this.handleScroll
+
+
         },
         methods: {
             back() {
@@ -115,6 +120,11 @@
             },
             showMoreText() {
                 this.hidden = !this.hidden
+                if (!this.hidden) {
+                    this.height = this.$refs.synopsis.offsetHeight + 'px'
+                } else {
+                    this.height = '42px'
+                }
             },
             handleScroll() {
                 let curScroll = document.documentElement.scrollTop
@@ -122,7 +132,7 @@
             },
             goToPhotos() {
                 this.$router.push({ name: 'Photos', params: { productId: this.$route.params.productId }})
-            }
+            },
         },
         filters: {
             handleTime(time) {
@@ -140,7 +150,7 @@
 
 <style lang="scss" scoped>
     .detail {
-        padding-bottom: 59px;
+        /*padding-bottom: 59px;*/
 
         .header-bar {
             position: fixed;
@@ -199,7 +209,7 @@
                         line-height: 24px;
                     }
 
-                    &:last-child {
+                    .score {
                         color: #ffb232;
                     }
                 }
@@ -215,7 +225,6 @@
 
             .synopsis {
                 transition: all .3s;
-                height: 60px;
                 p {
                     margin-top: 10px;
                     font-size: 13px;
@@ -259,7 +268,6 @@
                     /*flex: 1;*/
                     width: 85px !important;
                     height: 85px;
-                    overflow: hidden;
                     margin-right: 10px;
                     padding-bottom: 50px;
 
@@ -269,7 +277,7 @@
                         overflow: hidden;
                         img {
                             width: 100%;
-                            margin-top: -15px;
+                            //margin-top: -15px;
                         }
                     }
 
@@ -322,18 +330,18 @@
                 display: flex;
 
                 .item {
-                    /*flex: 1;*/
                     width: 150px;
                     height: 100px;
                     overflow: hidden;
                     margin-right: 10px;
 
                     .person-img {
-                        /*width: 150px !important;*/
+                        width: 150px;
                         height: 100px;
                         overflow: hidden;
                         img {
                             width: 100%;
+                            height: 100%;
                             margin-top: -15px;
                         }
                     }

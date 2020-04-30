@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <li v-for="data in dataList" :key="data.filmId" @click="toProduct(data.filmId)">
+            <li v-for="data in this.$store.state.nowPlayingList" :key="data.filmId" @click="toProduct(data.filmId)">
                 <div class="left">
                     <img :src="data.poster" alt="">
                     <div class="content">
@@ -30,16 +30,12 @@
             }
         },
         mounted() {
-            axios({
-                url: 'https://m.maizuo.com/gateway?cityId=440300&pageNum=1&pageSize=10&type=1&k=8085848',
-                headers: {
-                    'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15880353302293512536366","bc":"310100"}',
-                    'X-Host': 'mall.film-ticket.film.list'
-                }
-            }).then(res => {
-                this.dataList = res.data.data.films
-                console.log(res)
-            })
+            if (this.$store.state.nowPlayingList.length === 0) {
+                console.log('网络加载热映数据')
+                this.$store.dispatch('getNowPlayingList')
+            } else {
+                console.log('热映使用缓存数据')
+            }
         },
         filters: {
             // 处理男演员名字

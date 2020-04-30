@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :style="{paddingBottom: this.$store.state.tabBarHeight}">
         <!-- 通过key值来解决 swiper 初始化过早的问题，
              如果这次初始化前没拿到数据，那么在初始化后才拿到数据，
              递归算法因为 imgList 的长度变化而重新渲染
@@ -78,7 +78,8 @@
                   'http://img3.imgtn.bdimg.com/it/u=1761607809,3289570738&fm=15&gp=0.jpg',
                   'http://img5.imgtn.bdimg.com/it/u=4088829828,869036217&fm=15&gp=0.jpg'
                 ],
-                isFixed: false
+                isFixed: false,
+                bottom: '0px'
             }
         },
         components: {

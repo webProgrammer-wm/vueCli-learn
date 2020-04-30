@@ -1,5 +1,5 @@
 <template>
-    <nav>
+    <nav ref="tabBar">
         <ul>
             <!-- 给当前所在路由的按钮添加 class -->
             <router-link to="/film" tag="li" active-class="active">
@@ -23,6 +23,10 @@
         name: "TabBar",
         data() {
             return {}
+        },
+        mounted() {
+            this.$store.commit('setTabBarHeight', this.$refs.tabBar.offsetHeight)
+            console.log(this.$refs.tabBar.offsetHeight)
         }
     }
 </script>
