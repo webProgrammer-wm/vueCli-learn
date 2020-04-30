@@ -64,7 +64,7 @@
 
         </div>
 
-        <div v-if="isSale"> class="go-buy">
+        <div v-if="isSale" class="go-buy">
             <router-link to="../">在线选座</router-link>
         </div>
 
@@ -336,7 +336,8 @@
                     margin-right: 10px;
 
                     .person-img {
-                        width: 150px;
+                        /*width: 150px;*/
+                        width: auto;
                         height: 100px;
                         overflow: hidden;
                         img {

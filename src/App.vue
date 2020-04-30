@@ -2,12 +2,13 @@
     <div id="app">
         <!-- 路由展示的位置 -->
         <router-view/>
-        <tab-bar v-show="$store.state.showTabBar"></tab-bar>
+        <tab-bar v-show="showTabBar"></tab-bar>
     </div>
 </template>
 <script>
     import TabBar from "./components/TabBar"
     import axios from 'axios'
+    import { mapState } from 'vuex'
     export default {
         data() {
             return {
@@ -16,11 +17,14 @@
         components: {
             TabBar
         },
+        computed: {
+            ...mapState(['showTabBar'])
+        },
         mounted() {
             // axios.get('/ajax/movieOnInfoList?token=').then(res => {
             //   console.log(res.data)
             // })
-
+            console.log(mapState(['showTabBar']))
         }
     }
 </script>
