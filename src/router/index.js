@@ -8,6 +8,7 @@ import Center from "../views/Center"
 import Detail from "../views/Detail"
 import Login from "../views/login"
 import Photos from "../views/Detail/Photos"
+import City from "../views/Cinema/City"
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
         path: '/cinema',
         name: 'Cinema',
         component: Cinema
+    },
+    {
+        path: '/city',
+        name: 'City',
+        component: City
     },
     {
         // 动态路由，参数id 在此获取

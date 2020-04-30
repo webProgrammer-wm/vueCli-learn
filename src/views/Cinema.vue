@@ -1,8 +1,9 @@
 <template>
     <div class="cinemas">
         <div class="header">
-            影院
-            <div class="search"></div>
+            <div class="city" @click="toCity">城市</div>
+            <div class="title">影院</div>
+            <div class="search">搜索</div>
         </div>
         <div class="cinema-list" :style="{height: listHeight}">
             <ul>
@@ -60,10 +61,14 @@
                 })
             })
         },
-
         filters: {
             handlePrice(price) {
                 return price.toString().slice(0, -2) + '.' + price.toString().slice(-2, -1)
+            }
+        },
+        methods: {
+            toCity() {
+                this.$router.push('/city')
             }
         }
     }
@@ -79,6 +84,10 @@
             text-align: center;
             font-size: 17px;
             border-bottom: 1px solid #ededed;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            box-sizing: border-box;
         }
 
         .cinema-list {
