@@ -1,7 +1,7 @@
 <template>
     <div class="cinemas">
         <div class="header">
-            <div class="city" @click="toCity">城市</div>
+            <div class="city" @click="toCity">{{ this.$store.state.cityName }}</div>
             <div class="title">影院</div>
             <div class="search">搜索</div>
         </div>
@@ -40,15 +40,17 @@
             TabBar
         },
         mounted() {
-            console.log(document.documentElement.clientHeight)
+            let cityId = localStorage.getItem('cityId')
             axios({
-                url: 'https://m.maizuo.com/gateway?cityId=440300&ticketFlag=1&k=3326915',
+                url: `https://m.maizuo.com/gateway?cityId=${cityId}&ticketFlag=1&k=3326915`,
                 headers: {
                     'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15880353302293512536366","bc":"440300"}',
                     'X-Host': 'mall.film-ticket.cinema.list'
                 }
             }).then(res => {
                 this.dataList = res.data.data.cinemas
+
+                let cityName = this.dataList[0].cityName.slice(0, -1)
                 console.log(this.dataList)
                 this.listHeight = (document.documentElement.clientHeight - 95) + 'px'
                 this.$nextTick(() => {
@@ -58,7 +60,9 @@
                             interactive: false
                         }
                     })
+                    this.$store.commit('changeCity', cityName)
                 })
+
             })
         },
         filters: {
@@ -88,6 +92,20 @@
             justify-content: space-between;
             padding: 0 10px;
             box-sizing: border-box;
+
+            .city {
+                text-align: left;
+                padding-left: 5px;
+                width: 60px;
+                font-size: 13px;
+                color: #191a1b;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            .title {
+                margin-left: -30px;
+            }
         }
 
         .cinema-list {
@@ -130,7 +148,6 @@
                             color: #797d82;
                         }
                     }
-
                 }
             }
         }

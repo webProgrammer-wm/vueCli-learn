@@ -9,7 +9,8 @@ export default new Vuex.Store({
         showTabBar: true,
         nowPlayingList: [],
         comingsoonList: [],
-        tabBarHeight: ''
+        tabBarHeight: '',
+        cityName: ''
     },
     // 唯一修改状态的位置
     mutations: {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
         },
         setTabBarHeight(state, height) {
             state.tabBarHeight = height + 'px'
+        },
+        changeCity(state, city) {
+            state.cityName = city
         }
     },
     actions: {

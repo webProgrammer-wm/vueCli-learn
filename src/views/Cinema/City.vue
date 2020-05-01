@@ -1,7 +1,7 @@
 <template>
     <div class="city">
         <div class="header">
-            <div class="back iconfont icon-fanhui"></div>
+            <div class="back iconfont icon-fanhui" @click="back()"></div>
             <div class="title">选择城市</div>
         </div>
         <div class="search">
@@ -10,85 +10,22 @@
         <div class="city-list">
             <div class="hot">热门城市</div>
             <div class="city-header">
-
                 <div class="hot-list">
-                    <div class="city-item">北京</div>
-                    <div class="city-item">上海</div>
-                    <div class="city-item">广州</div>
-                    <div class="city-item">深圳</div>
+                    <div class="city-item" v-for="city in hotList" @click="selectCity(city.cityId, city)">{{ city.name }}</div>
                 </div>
-
             </div>
         </div>
 
-        <van-index-bar id="index-list" :index-list="indexList">
-            <van-index-anchor class="index-area" index="A"/>
-            <van-cell class="city-item" v-for="item in cityList.a" :title="item" />
-
-            <van-index-anchor class="index-area" index="B" />
-            <van-cell class="city-item" v-for="item in cityList.b" :title="item" />
-
-            <van-index-anchor class="index-area" index="C" />
-            <van-cell class="city-item" v-for="item in cityList.c" :title="item" />
-
-            <van-index-anchor class="index-area" index="D" />
-            <van-cell class="city-item" v-for="item in cityList.d" :title="item" />
-
-            <van-index-anchor class="index-area" index="E" />
-            <van-cell class="city-item" v-for="item in cityList.e" :title="item" />
-
-            <van-index-anchor class="index-area" index="F" />
-            <van-cell class="city-item" v-for="item in cityList.f" :title="item" />
-
-            <van-index-anchor class="index-area" index="G" />
-            <van-cell class="city-item" v-for="item in cityList.g" :title="item" />
-
-            <van-index-anchor class="index-area" index="H" />
-            <van-cell class="city-item" v-for="item in cityList.h" :title="item" />
-
-            <van-index-anchor class="index-area" index="J" />
-            <van-cell class="city-item" v-for="item in cityList.j" :title="item" />
-
-            <van-index-anchor class="index-area" index="K" />
-            <van-cell class="city-item" v-for="item in cityList.k" :title="item" />
-
-            <van-index-anchor class="index-area" index="L" />
-            <van-cell class="city-item" v-for="item in cityList.l" :title="item" />
-
-            <van-index-anchor class="index-area" index="M" />
-            <van-cell class="city-item" v-for="item in cityList.m" :title="item" />
-
-            <van-index-anchor class="index-area" index="N" />
-            <van-cell class="city-item" v-for="item in cityList.n" :title="item" />
-
-            <van-index-anchor class="index-area" index="P" />
-            <van-cell class="city-item" v-for="item in cityList.p" :title="item" />
-
-            <van-index-anchor class="index-area" index="Q" />
-            <van-cell class="city-item" v-for="item in cityList.q" :title="item" />
-
-            <van-index-anchor class="index-area" index="R" />
-            <van-cell class="city-item" v-for="item in cityList.r" :title="item" />
-
-            <van-index-anchor class="index-area" index="S" />
-            <van-cell class="city-item" v-for="item in cityList.s" :title="item" />
-
-            <van-index-anchor class="index-area" index="T" />
-            <van-cell class="city-item" v-for="item in cityList.t" :title="item" />
-
-            <van-index-anchor class="index-area" index="W" />
-            <van-cell class="city-item" v-for="item in cityList.w" :title="item" />
-
-            <van-index-anchor class="index-area" index="X" />
-            <van-cell class="city-item" v-for="item in cityList.x" :title="item" />
-
-            <van-index-anchor class="index-area" index="Y" />
-            <van-cell class="city-item" v-for="item in cityList.y" :title="item" />
-
-            <van-index-anchor class="index-area" index="Z" />
-            <van-cell class="city-item" v-for="item in cityList.z" :title="item" />
-
-
+        <van-index-bar id="index-list" :index-list="letters">
+            <div v-for="data in cityList">
+                <van-index-anchor class="index-area" :index="data.index" />
+                <van-cell class="city-item"
+                          v-for="item in data.list"
+                          :key="item.cityId"
+                          @click="selectCity(item.cityId, item)"
+                          :title="item.name"
+                />
+            </div>
         </van-index-bar>
 
     </div>
@@ -100,9 +37,9 @@
         name: "City",
         data() {
             return {
-                baseCityList: [],
-                indexList: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'W', 'X', 'Y', 'Z'],
-                cityList: {}
+                letters: [],
+                hotList: [],
+                cityList: []
             }
         },
         beforeMount() {
@@ -118,26 +55,55 @@
                 }
             }).then(res => {
                 console.log(res.data.data.cities)
-                this.baseCityList = res.data.data.cities
-
-                // 将以拼音f开头的,以f作为键名,
-                if (this.baseCityList) {
-                    this.$forceUpdate();
-
-                    this.baseCityList.forEach(item => {
-                        if (!this.cityList.hasOwnProperty(item.pinyin[0])) {
-                            this.cityList[item.pinyin[0]] = []
-                        }
-                        if (item.pinyin[0] in this.cityList) {
-                            this.cityList[item.pinyin[0]].push(item.name)
-                            // this.cityList[item.pinyin[0]].push(item.name)
-                        }
-                    })
-                    console.log(this.cityList)
-                    this.cityList = Object.assign(this.cityList)
-                }
+                this.handleCity(res.data.data.cities)
+                this.hotCity(res.data.data.cities)
             })
 
+        },
+
+        methods: {
+            back() {
+                this.$router.push('/cinema')
+            },
+            selectCity(id, item) {
+                console.log(id)
+                localStorage.setItem('cityId', id)
+                this.$store.commit('changeCity', item.name)
+                this.$router.push('/cinema')
+            },
+
+            // 处理城市列表
+            handleCity(list) {
+                const letters = []
+                for (let i = 65; i < 91; i ++) {
+                    letters.push(String.fromCharCode(i))
+                }
+
+                const newList = []
+                // 遍历26个字母列表
+                for (let i = 0, len = letters.length; i < len; i ++) {
+                    // 如果
+                    const arr = list.filter(item => {
+                        return item.pinyin[0] === letters[i].toLowerCase()
+                    })
+                    if (arr.length) {
+                        this.cityList.push({
+                            index: letters[i],
+                            list: arr
+                        })
+                        this.letters.push(letters[i])
+                    }
+                }
+                console.log(this.cityList)
+            },
+
+            hotCity(cityList) {
+                cityList.filter(item => {
+                    if (item.isHot === 1) {
+                        this.hotList.push(item)
+                    }
+                })
+            }
         }
     }
 </script>
@@ -175,7 +141,7 @@
                 padding-left: 30px;
                 background: #FFF;
                 border: none;
-
+                outline: none;
             }
         }
 
@@ -226,14 +192,16 @@
 
             .index-area {
                 margin-left: 15px;
-                margin-right: 15px;
                 box-sizing: border-box;
                 font-size: 12px;
                 background: #f4f4f4;
                 height: 30px;
                 line-height: 30px;
-                padding-right: 15px;
                 color: #797d82;
+                border-right: 18px solid #FFF;
+            }
+            .van-index-anchor {
+                transform: none!important;
             }
 
             .city-item {
@@ -242,9 +210,9 @@
                 line-height: 48px;
                 background: #FFF;
                 padding-left: 15px;
-                padding-right: 15px;
                 font-size: 14px;
                 border-bottom: 1px solid #f4f4f4;
+                border-right: 32px solid #FFF;
             }
         }
     }

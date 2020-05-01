@@ -83,7 +83,7 @@
                 hidden: true,
                 actorsList: [],
                 isFixed: false,
-                height: '42px',
+                height: '45px',
                 isSale: true
             }
         },
@@ -123,7 +123,7 @@
                 if (!this.hidden) {
                     this.height = this.$refs.synopsis.offsetHeight + 'px'
                 } else {
-                    this.height = '42px'
+                    this.height = '45px'
                 }
             },
             handleScroll() {
@@ -150,8 +150,6 @@
 
 <style lang="scss" scoped>
     .detail {
-        /*padding-bottom: 59px;*/
-
         .header-bar {
             position: fixed;
             top: 0;
@@ -231,7 +229,7 @@
                     color: #797d82;
                 }
                 &.hidden {
-                    height: 42px;
+                    height: 45px;
                     overflow: hidden;
 
                     &~.toggle {
